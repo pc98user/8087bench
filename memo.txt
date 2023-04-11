@@ -31,6 +31,7 @@ A:\> set 87=N
 とすると、有効/無効を切り替えられる。
 
 'Y'とすると287/387であっても、8087として認識されてしまうのか？
+→3(80387)となった。(エミュレータで確認。)
 
 ●コンパイルオプション
 > tcc -ml -G -Z -O -ewhet_tcc.exe whetston.c  
@@ -56,6 +57,9 @@ Options
       Optimize For > Speed(-G)
 
 http://www.bitsavers.org/pdf/borland/turbo_c/
+
+・pc98equipの値を表示させるには"-DTCC"を付加する。
+
 
 ●コンパイルオプション(gcc)
 $ ia16-elf-gcc -march=i8086 -O2 -mcmodel=small -o whet_gcc.exe whetstone.c

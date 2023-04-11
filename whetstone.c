@@ -60,6 +60,11 @@ C**********************************************************************
 /* the following is optional depending on the timing function used */
 #include <time.h>
 
+#ifdef TCC
+#include <dos.h>
+#include <pc98.h>
+#endif // TCC
+
 /* map the FORTRAN math functions, etc. to the C versions */
 #define DSIN	sin
 #define DCOS	cos
@@ -97,6 +102,48 @@ main(int argc, char *argv[])
 	long startsec, finisec;
 	float KIPS;
 	int continuous;
+
+#ifdef TCC
+	char *_87;
+	union {
+	    unsigned ret;
+	    struct {
+	        unsigned cpu:3;
+	        unsigned clk:1;
+	        unsigned ndp:2;
+	        unsigned kbd:1;
+	        unsigned nesa:1;
+	        unsigned glsi:3;
+	        unsigned iplane:1;
+	        unsigned rsv:2;
+	        unsigned eatr:1;
+	        unsigned mode:1;
+	    } mask;
+	} eq;
+
+
+	printf("_8087 = %d\n", _8087);
+
+	_87 = getenv("87");
+	if (_87 != NULL) {
+	    printf("87 = %s\n", _87);
+	}
+	else {
+	    printf("87 is not set.\n");
+	}
+
+	eq.ret = pc98equip();
+    printf("cpu = %d, CPU (0:8086, 1:V30, 2:80286, 3:80386)\n", eq.mask.cpu);
+    printf("clk = %d, Peripheral I/O clock (0:5MHz, 1:8MHz)\n", eq.mask.clk);
+    printf("ndp = %d, Co-Processor(0:none, 1:8087, 2:80287, 3:80387)\n", eq.mask.ndp);
+    printf("kbd = %d, Key board (0:Old type, 1:New type)\n", eq.mask.kbd);
+    printf("nesa = %d, NESA bus (0:none, 1:yes)\n", eq.mask.nesa);
+    printf("glsi = %d, Graphics LSI (0:GDC, 1:GRCG, 2:EGC, 3:E2GC, AGDC)\n", eq.mask.glsi);
+    printf("iplane = %d, 16 color mode (0:Unavailable, 1:Available)\n", eq.mask.iplane);
+    printf("rsv = %d\n", eq.mask.rsv);
+    printf("eatr = %d, Extended attributes (0:Unavailable, 1:Available)\n", eq.mask.eatr);
+    printf("mode = %d, Display type (0:Normal mode, 1:Hi-reso mode)\n", eq.mask.mode);
+#endif // TCC
 
 	loopstart = 1000;		/* see the note about LOOP below */
 	continuous = 0;

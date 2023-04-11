@@ -22,3 +22,36 @@ C Converted Double Precision Whetstones: 9.3 KIPS
 ------+--------+--------
       | 245 sec|   -
       |4.1 KIPS|   -
+
+      
+
+・8087無効時(set 87=N)
+_8087 = 0
+87 = N
+cpu = 0, CPU (0:8086, 1:V30, 2:80286, 3:80386)
+clk = 0, Peripheral I/O clock (0:5MHz, 1:8MHz)
+ndp = 1, Co-Processor(0:none, 1:8087, 2:80287, 3:80387)
+kbd = 0, Key board (0:Old type, 1:New type)
+nesa = 0, NESA bus (0:none, 1:yes)
+glsi = 0, Graphics LSI (0:GDC, 1:GRCG, 2:EGC, 3:E2GC, AGDC)
+iplane = 0, 16 color mode (0:Unavailable, 1:Available)
+rsv = 0
+eatr = 0, Extended attributes (0:Unavailable, 1:Available)
+mode = 0, Display type (0:Normal mode, 1:Hi-reso mode)
+
+・8087有効時
+_8087 = 1
+87 = Y
+cpu = 0, CPU (0:8086, 1:V30, 2:80286, 3:80386)
+clk = 0, Peripheral I/O clock (0:5MHz, 1:8MHz)
+ndp = 1, Co-Processor(0:none, 1:8087, 2:80287, 3:80387)
+kbd = 0, Key board (0:Old type, 1:New type)
+nesa = 0, NESA bus (0:none, 1:yes)
+glsi = 0, Graphics LSI (0:GDC, 1:GRCG, 2:EGC, 3:E2GC, AGDC)
+iplane = 0, 16 color mode (0:Unavailable, 1:Available)
+rsv = 0
+eatr = 0, Extended attributes (0:Unavailable, 1:Available)
+mode = 0, Display type (0:Normal mode, 1:Hi-reso mode)
+
+
+      
