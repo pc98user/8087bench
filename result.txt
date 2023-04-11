@@ -1,20 +1,24 @@
 > whet_tcc.exe 100
+Loops: 100, Iterations: 1, Duration: 1076 sec.
+C Converted Double Precision Whetstones: 9.3 KIPS
 
   回数|8087なし|8087あり
 ------+--------+--------
- 1回目|     sec|
-      |    KIPS|
- 2回目|        |
-      |        |
- 3回目|        |
-      |        |
+ 1回目|1076 sec|  89 sec
+      |9.3 KIPS|112.4 KIPS
+ 2回目|1075 sec|  89 sec
+      |9.3 KIPS|112.4 KIPS
+ 3回目|1075 sec|  89 sec
+      |9.3 KIPS|112.4 KIPS
 ------+--------+--------
-  平均|        |
+  平均|9.3 KIPS|112.4 KIPS
+
+→約12倍
 
 
 > whet_gcc.exe 100
 
       |8087なし|8087あり
 ------+--------+--------
-      |        |   -
-
+      | 245 sec|   -
+      |4.1 KIPS|   -
