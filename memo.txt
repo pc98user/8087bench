@@ -1,0 +1,64 @@
+
+●ソースプログラム
+プログラムはFreeBSD Portsのbenchmarkの中から探し出した。
+https://netlib.org/benchmark/
+ここからコピー
+
+●PC-9801システム解析(上)
+「PC-9801の内部の空ソケットに差し込み、ディップスイッチとストラップスイッチを取り外すのみで使用可能となります。」
+→スイッチというのがよく分からないが、ソケット脇のジャンパを取り外すことで使用可能になった。
+
+●TURBO C++テキスト「HELPME!.DOC」
+---
+［Ｑ］  数値演算コプロセッサが搭載されているかどうか判別するために、 _8087
+        変数を参照していますが、コプロセッサを搭載していても値が 0 となって
+        いるようです。
+［Ａ］  _8087 変数は、数値演算ライブラリがリンクされている場合にのみ 0 以外の
+        値を示します。したがって、単に _8087 変数を表示するようなプログラム
+        では _8087 は 0 のままになります。なんらかの数値演算を行うか、数学
+        関数を使用すれば、搭載されているコプロセッサの種類を判別し、0(コプロ
+        セッサ無), 1(8087), 2(80287), 3(80387) のいずれかが与えられます。
+        また、環境変数 87 が定義されている場合は、搭載されているコプロセッサの
+        種類によらず、Y の場合は 1、N の場合は 0 が与えられます。
+        数値演算を行なわない場合でも、搭載しているコプロセッサの状態を調べたい
+        という場合は、pc98equip 関数を使ってください。
+---
+→ソフトウェアスイッチ(SW3)の設定は参照されないようだ。
+
+A:\> set 87=Y
+または
+A:\> set 87=N
+とすると、有効/無効を切り替えられる。
+
+'Y'とすると287/387であっても、8087として認識されてしまうのか？
+
+●コンパイルオプション
+> tcc -ml -G -Z -O -ewhet_tcc.exe whetston.c  
+
+IDEでのメニューで相当するダイアログは以下の通り。
+(=がデフォルト、>が変更点)
+Options
+  Compiler
+    Code generation
+      Model = Small
+            > Large(-ml)
+      More
+        Floating Point = Emulation(-f)
+                       > 8087(-f87)
+                       > 80287(-f287)
+        Instruction Set = 8088/8086(-1-)
+        Options
+          Fast floating point = [X](-ff)
+    Optimizations
+      Optimization Options
+        Register optimization > [X](-Z)
+        Jump optimization > [X](-O)
+      Optimize For > Speed(-G)
+
+http://www.bitsavers.org/pdf/borland/turbo_c/
+
+●コンパイルオプション(gcc)
+$ ia16-elf-gcc -march=i8086 -O2 -mcmodel=small -o whet_gcc.exe whetstone.c
+
+8087を使用するオプションはなさそうだ。(エミュレーションのみ)
+
